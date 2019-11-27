@@ -23,10 +23,11 @@ db.create_tables([Contact])
 
 show = input("Would you like to see all of your contacts? y/n")
 if show == 'y':
-    all_contacts = Contact.select()
-    # print()
+    for contact in Contact.select():
+        print(
+            f' \n\n first name: {contact.first_name}\n last name: {contact.last_name}\n phone: {contact.phone}\n email: {contact.email}')
 
-add = input("Add a contact? y/n")
+add = input("Would you like to add a contact? y/n")
 if add == 'y':
 
     new_first = input("What is this contact's first name?")
@@ -63,6 +64,3 @@ if search == 'y':
         delete = input("Would you like to delete this contact? y/n")
         if delete == 'y':
             search_result.delete_instance()
-
-
-# switch to oop!

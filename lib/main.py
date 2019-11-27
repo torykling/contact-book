@@ -83,6 +83,8 @@ class ContactBook:
                 search_result.delete_instance()
                 print("\n This contact has been deleted.\n")
                 self.start()
+            else:
+                self.start()
 
 
 contact_book = ContactBook()

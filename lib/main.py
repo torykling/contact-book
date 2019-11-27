@@ -57,34 +57,38 @@ class ContactBook:
     def search(self):
         search_name = input(
             "What is the first name of the contact you'd like to find?")
-        search_result = Contact.get(Contact.first_name == search_name)
-        print(
-            f'\n first name: {search_result.first_name}\n last name: {search_result.last_name}\n phone: {search_result.phone}\n email: {search_result.email}\n')
-        update = input("Would you like to update this contact? y/n")
-        if update == 'y':
-            updated_first = input(
-                "What is the updated first name of this contact?")
-            updated_last = input(
-                "What is the updated last name of this contact?")
-            updated_phone = input(
-                "What is the updated phone number for this contact?")
-            updated_email = input(
-                "What is the updated email for this contact?")
-            search_result.first_name = updated_first
-            search_result.last_name = updated_last
-            search_result.phone = updated_phone
-            search_result.email = updated_email
-            search_result.save()
-            print("\n This contact has been updated.\n")
-            self.start()
-        else:
-            delete = input("Would you like to delete this contact? y/n")
-            if delete == 'y':
-                search_result.delete_instance()
-                print("\n This contact has been deleted.\n")
+        try:
+            search_result = Contact.get(Contact.first_name == search_name)
+            print(
+                f'\n first name: {search_result.first_name}\n last name: {search_result.last_name}\n phone: {search_result.phone}\n email: {search_result.email}\n')
+            update = input("Would you like to update this contact? y/n")
+            if update == 'y':
+                updated_first = input(
+                    "What is the updated first name of this contact?")
+                updated_last = input(
+                    "What is the updated last name of this contact?")
+                updated_phone = input(
+                    "What is the updated phone number for this contact?")
+                updated_email = input(
+                    "What is the updated email for this contact?")
+                search_result.first_name = updated_first
+                search_result.last_name = updated_last
+                search_result.phone = updated_phone
+                search_result.email = updated_email
+                search_result.save()
+                print("\n This contact has been updated.\n")
                 self.start()
             else:
-                self.start()
+                delete = input("Would you like to delete this contact? y/n")
+                if delete == 'y':
+                    search_result.delete_instance()
+                    print("\n This contact has been deleted.\n")
+                    self.start()
+                else:
+                    self.start()
+        except Contact.DoesNotExist:
+            print("\n There are no contacts in the contact book with that name.\n")
+            self.start()
 
 
 contact_book = ContactBook()
